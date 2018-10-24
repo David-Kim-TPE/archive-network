@@ -12,31 +12,107 @@
  * limitations under the License.
  */
 
-/**
- * Write your model definitions here
- */
+namespace org.example.archive
 
-namespace org.example.biznet
-
-participant SampleParticipant identified by participantId {
-  o String participantId
-  o String firstName
-  o String lastName
+enum ClassType {
+  o A
+  o B
+  o C
+  o D
+  o E
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  --> SampleParticipant owner
-  o String value
+enum Agency {
+  o TP
+  o SL
+  o PC
+  o TY
+  o SC
+  o TC
+  o CH
+  o CY
+  o TN
+  o KS
+  o PT
+  o HL
+  o IL
 }
 
-transaction SampleTransaction {
-  --> SampleAsset asset
-  o String newValue
+//ASSET
+asset OfficialDocument identified by Issue_No  {
+  o String Issue_No // 發文字號
+  o String Issue_Date // 發文日期
+  o ClassType Class_Type // 案件類別
+  o String Send_Class_ID // 移送案號
+  o String Duty_Name // 義務人姓名
+  o String Duty_Birthday // 出生日期（義務人）
+  o String Duty_ZipCode // 戶籍郵遞區號（義務人）
+  o String Duty_Addr // 戶籍地址（義務人）
+  o String Legal_Case_ID // 案由代碼
+  o Integer Pay_Amt // 應納金額
+  o Boolean Protect_Exit_Org // 保全措施（已限制出境）
+  o Boolean Protect_Punish_Org // 保全措施（已禁止處分）
+  o Boolean Protect_Guar_Org // 保全措施（已提供擔保）
+  o Boolean Protect_Sei_Org // 保全措施（已假扣押）
+  o Boolean Protect_Closed_Org // 保全措施（已勒令停業）
+  o Boolean Pay_Period_Due_Date // 繳納期間屆滿日
+  o Boolean Is_Punishment // 是否行政處分確定
+  o String End_File_No // 歸檔檔號
+  o String End_File_Date // 歸檔日期
+  o String BatchNo // 歸檔批號-流水號
+  o String BatchYear // 歸檔批號-年度
+  o String End_Print_Date // 歸檔列印日期
+  o String End_Valid_Date // 歸檔審核日期
+  o Agency Agency_Id // 行政執行分屬代碼前2碼
+  o String Transfer_Agency_Id // 移送機關代號
+  o String Transfer_Date // 移送日期
+  //--> Secretary End_File_Submiter // 歸檔人
 }
 
-event SampleEvent {
-  --> SampleAsset asset
-  o String oldValue
-  o String newValue
+abstract participant Person identified by personId {
+  o String personId
+  o String name
+  o String lastName optional
+}
+
+participant Secretary extends Person {
+}
+
+participant Querent extends Person {
+}
+
+// TRANSACTIONS + EVENTS
+transaction Archive {
+  o String Issue_No
+  o String End_File_No
+  o String End_File_Date
+  o String BatchNo
+  o String BatchYear
+  --> Secretary End_File_Submiter // 歸檔人
+}
+
+event ArchiveEvent {
+  --> OfficialDocument od // 公文
+  --> Secretary End_File_Submiter // 歸檔人
+}
+
+transaction ArchivePrint {
+  o String Issue_No
+  o String End_Print_Date
+  --> Secretary End_File_Printer // 歸檔列印人
+}
+
+event ArchivePrintEvent {
+  --> OfficialDocument od // 公文
+  --> Secretary End_File_Printer // 歸檔列印人
+}
+
+transaction Query {
+  --> OfficialDocument od // 公文
+  --> Querent Querent // 調閱人
+}
+
+event QueryEvent {
+  --> OfficialDocument od // 公文
+  --> Querent Querent // 調閱人
 }
