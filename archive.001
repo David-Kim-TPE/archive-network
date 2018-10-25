@@ -1,0 +1,9 @@
+{
+  "$class": "org.example.archive.Archive",
+  "od": "resource:org.example.archive.OfficialDocument#桃稅蘆1064413137",
+  "End_File_No": "TY08020302011070021536",
+  "End_File_Date": "10710251246",
+  "BatchNo": "36",
+  "BatchYear": "102",
+  "End_File_Submiter": "resource:org.example.archive.Secretary#AliceTsao"
+}

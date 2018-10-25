@@ -14,6 +14,9 @@
 
 namespace org.example.archive
 
+/**
+ * 案件類別
+ */
 enum ClassType {
   o A
   o B
@@ -22,6 +25,9 @@ enum ClassType {
   o E
 }
 
+/**
+ * 行政執行分屬代碼
+ */
 enum Agency {
   o TP
   o SL
@@ -38,7 +44,9 @@ enum Agency {
   o IL
 }
 
-//ASSET
+/**
+ * 公文
+ */
 asset OfficialDocument identified by Issue_No  {
   o String Issue_No // 發文字號
   o String Issue_Date // 發文日期
@@ -57,33 +65,46 @@ asset OfficialDocument identified by Issue_No  {
   o Boolean Protect_Closed_Org // 保全措施（已勒令停業）
   o Boolean Pay_Period_Due_Date // 繳納期間屆滿日
   o Boolean Is_Punishment // 是否行政處分確定
-  o String End_File_No // 歸檔檔號
-  o String End_File_Date // 歸檔日期
-  o String BatchNo // 歸檔批號-流水號
-  o String BatchYear // 歸檔批號-年度
-  o String End_Print_Date // 歸檔列印日期
-  o String End_Valid_Date // 歸檔審核日期
+  o String End_File_No optional // 歸檔檔號
+  o String End_File_Date optional // 歸檔日期
+  o String BatchNo optional // 歸檔批號-流水號
+  o String BatchYear optional // 歸檔批號-年度
+  o String End_Print_Date optional // 歸檔列印日期
+  o String End_Valid_Date optional // 歸檔審核日期
   o Agency Agency_Id // 行政執行分屬代碼前2碼
   o String Transfer_Agency_Id // 移送機關代號
   o String Transfer_Date // 移送日期
-  //--> Secretary End_File_Submiter // 歸檔人
+  --> Secretary End_File_Submiter optional // 歸檔人
+  --> Secretary End_File_Printer optional // 歸檔列印人
 }
 
+/**
+ * 人員
+ */
 abstract participant Person identified by personId {
   o String personId
   o String name
   o String lastName optional
 }
 
+/**
+ * 秘書人員
+ */
 participant Secretary extends Person {
 }
 
+/**
+ * 調閱人員
+ */
 participant Querent extends Person {
 }
 
 // TRANSACTIONS + EVENTS
+/**
+ * 歸檔作業
+ */
 transaction Archive {
-  o String Issue_No
+  --> OfficialDocument od // 公文
   o String End_File_No
   o String End_File_Date
   o String BatchNo
@@ -91,28 +112,55 @@ transaction Archive {
   --> Secretary End_File_Submiter // 歸檔人
 }
 
+/**
+ * 歸檔作業事件
+ */
 event ArchiveEvent {
   --> OfficialDocument od // 公文
-  --> Secretary End_File_Submiter // 歸檔人
 }
 
+/**
+ * 歸檔列印作業
+ */
 transaction ArchivePrint {
-  o String Issue_No
+  --> OfficialDocument od // 公文
   o String End_Print_Date
   --> Secretary End_File_Printer // 歸檔列印人
 }
 
+/**
+ * 歸檔列印作業事件
+ */
 event ArchivePrintEvent {
   --> OfficialDocument od // 公文
-  --> Secretary End_File_Printer // 歸檔列印人
 }
 
+/**
+ * 調閱作業
+ */
 transaction Query {
   --> OfficialDocument od // 公文
   --> Querent Querent // 調閱人
 }
 
+/**
+ * 調閱作業事件
+ */
 event QueryEvent {
   --> OfficialDocument od // 公文
   --> Querent Querent // 調閱人
+}
+
+
+/**
+ * 測試
+ */
+transaction Test {
+}
+
+/**
+ * 查詢交易紀錄
+ */
+transaction QueryHistorian {
+  o String Issue_No
 }

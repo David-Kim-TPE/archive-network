@@ -1,0 +1,5 @@
+{
+  "$class": "org.example.archive.Query",
+  "od": "resource:org.example.archive.OfficialDocument#桃稅蘆1064413137",
+  "Querent": "resource:org.example.archive.Querent#JohnChen"
+}

@@ -1,0 +1,6 @@
+{
+  "$class": "org.example.archive.Querent",
+  "personId": "JohnChen",
+  "name": "強",
+  "lastName": "陳"
+}

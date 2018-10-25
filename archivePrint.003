@@ -1,0 +1,6 @@
+{
+  "$class": "org.example.archive.ArchivePrint",
+  "od": "resource:org.example.archive.OfficialDocument#桃稅蘆1064413368",
+  "End_Print_Date": "10710260506",
+  "End_File_Printer": "resource:org.example.archive.Secretary#AliceTsao"
+}
