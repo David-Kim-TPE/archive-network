@@ -138,7 +138,7 @@ event ArchivePrintEvent {
 /**
  * 調閱作業
  */
-transaction Query {
+transaction Inquiry {
   --> OfficialDocument od // 公文
   --> Querent Querent // 調閱人
 }
@@ -146,7 +146,7 @@ transaction Query {
 /**
  * 調閱作業事件
  */
-event QueryEvent {
+event InquiryEvent {
   --> OfficialDocument od // 公文
   --> Querent Querent // 調閱人
 }
@@ -161,6 +161,6 @@ transaction Test {
 /**
  * 查詢交易紀錄
  */
-transaction QueryHistorian {
+transaction InquiryHistorian {
   o String Issue_No
 }

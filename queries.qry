@@ -1,0 +1,17 @@
+/** Sample queries for Commodity Trading business network
+*/
+
+query selectOfficialDocument {
+  description: "Select all official documents"
+  statement:
+      SELECT org.example.archive.OfficialDocument
+  			WHERE (Issue_No == _$Issue_No)
+}
+
+
+query selectHistorian {
+  description: "Select all historian record"
+  statement:
+  	SELECT org.hyperledger.composer.system.HistorianRecord
+           // WHERE (transactionType == 'AddAsset' OR transactionType == 'UpdateAsset' OR transactionType == 'RemoveAsset')
+}
