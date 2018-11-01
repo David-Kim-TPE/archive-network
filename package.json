@@ -3,7 +3,7 @@
     "composer": "^0.20.1"
   },
   "name": "archive-network",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "a basic officail document archiving network",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/archive-network.bna",
@@ -11,11 +11,13 @@
     "lint": "eslint .",
     "test": "nyc mocha -t 0 test/*.js && cucumber-js",
     "archive": "composer archive create -t dir -n .",
-    "deploy": "composer network install --card PeerAdmin@hlfv1 --archiveFile archive-network@0.0.2.bna",
-    "start" : "composer network start --networkName archive-network --networkVersion 0.0.2 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card",
+    "deploy": "composer network install --card PeerAdmin@hlfv1 --archiveFile archive-network@$npm_package_version.bna",
+    "start" : "composer network start --networkName archive-network --networkVersion $npm_package_version --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card",
     "import" : "composer card import --card admin@archive-network --file networkadmin.card",
     "ping": "composer network ping --card admin@archive-network",
-    "upgrade" : "composer network upgrade -c PeerAdmin@hlfv1 -n archive-network -V 0.0.2"
+    "upgrade" : "composer network upgrade -c PeerAdmin@hlfv1 -n archive-network -V $npm_package_version",
+    "uninstall": "npm uninstall -g composer-cli composer-rest-server generator-hyperledger-composer",
+    "reinstall": "npm install -g composer-cli composer-rest-server generator-hyperledger-composer"
   },
   "keywords": [
     "composer",

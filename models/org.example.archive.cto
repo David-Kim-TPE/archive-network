@@ -18,30 +18,30 @@ namespace org.example.archive
  * 案件類別
  */
 enum ClassType {
-  o A
-  o B
-  o C
-  o D
-  o E
+  o A // 一般案件
+  o B // 其他案件
+  o C // 假扣押案件
+  o D // 法院移交案件
+  o E // 移轉管轄案件
 }
 
 /**
  * 行政執行分屬代碼
  */
 enum Agency {
-  o TP
-  o SL
-  o PC
-  o TY
-  o SC
-  o TC
-  o CH
-  o CY
-  o TN
-  o KS
-  o PT
-  o HL
-  o IL
+  o TP // 臺北分署
+  o SL // 士林分署
+  o PC // 新北分署
+  o TY // 桃園分署
+  o SC // 新竹分署
+  o TC // 臺中分署
+  o CH // 彰化分署
+  o CY // 嘉義分署
+  o TN // 臺南分署
+  o KS // 高雄分署
+  o PT // 屏東分署
+  o HL // 花蓮分署
+  o IL // 宜蘭分署
 }
 
 /**
@@ -63,7 +63,7 @@ asset OfficialDocument identified by Issue_No  {
   o Boolean Protect_Guar_Org // 保全措施（已提供擔保）
   o Boolean Protect_Sei_Org // 保全措施（已假扣押）
   o Boolean Protect_Closed_Org // 保全措施（已勒令停業）
-  o Boolean Pay_Period_Due_Date // 繳納期間屆滿日
+  o String Pay_Period_Due_Date // 繳納期間屆滿日
   o Boolean Is_Punishment // 是否行政處分確定
   o String End_File_No optional // 歸檔檔號
   o String End_File_Date optional // 歸檔日期
@@ -82,9 +82,9 @@ asset OfficialDocument identified by Issue_No  {
  * 人員
  */
 abstract participant Person identified by personId {
-  o String personId
-  o String name
-  o String lastName optional
+  o String personId // 人員ID
+  o String name // 人員名字
+  o String lastName optional // 人員姓氏
 }
 
 /**
@@ -105,10 +105,10 @@ participant Querent extends Person {
  */
 transaction Archive {
   --> OfficialDocument od // 公文
-  o String End_File_No
-  o String End_File_Date
-  o String BatchNo
-  o String BatchYear
+  o String End_File_No // 歸檔檔號
+  o String End_File_Date // 歸檔日期
+  o String BatchNo // 歸檔批號-流水號
+  o String BatchYear // 歸檔批號-年度
   --> Secretary End_File_Submiter // 歸檔人
 }
 
@@ -124,7 +124,7 @@ event ArchiveEvent {
  */
 transaction ArchivePrint {
   --> OfficialDocument od // 公文
-  o String End_Print_Date
+  o String End_Print_Date // 歸檔列印日期
   --> Secretary End_File_Printer // 歸檔列印人
 }
 
@@ -155,12 +155,12 @@ event InquiryEvent {
 /**
  * 測試
  */
-transaction Test {
+transaction Demo {
 }
 
 /**
  * 查詢交易紀錄
  */
 transaction InquiryHistorian {
-  o String Issue_No
+  o String Issue_No // 發文字號
 }

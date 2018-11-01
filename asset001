@@ -15,7 +15,7 @@
   "Protect_Guar_Org": false,
   "Protect_Sei_Org": false,
   "Protect_Closed_Org": false,
-  "Pay_Period_Due_Date": false,
+  "Pay_Period_Due_Date": "1081113",
   "Is_Punishment": true,
   "End_File_No": "",
   "End_File_Date": "",
