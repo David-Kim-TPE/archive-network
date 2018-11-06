@@ -156,6 +156,7 @@ event InquiryEvent {
  * 測試
  */
 transaction Demo {
+  o OfficialDocument[] ods
 }
 
 /**
