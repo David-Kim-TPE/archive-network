@@ -76,6 +76,8 @@ asset OfficialDocument identified by Issue_No  {
   o String Transfer_Date // 移送日期
   --> Secretary End_File_Submiter optional // 歸檔人
   --> Secretary End_File_Printer optional // 歸檔列印人
+  o String File_URL optional // 檔案暫存路徑
+  o String End_File_URL optional // 歸檔檔案路徑
 }
 
 /**
@@ -109,6 +111,7 @@ transaction Archive {
   o String End_File_Date // 歸檔日期
   o String BatchNo // 歸檔批號-流水號
   o String BatchYear // 歸檔批號-年度
+  o String End_File_URL // 歸檔檔案URL
   --> Secretary End_File_Submiter // 歸檔人
 }
 
