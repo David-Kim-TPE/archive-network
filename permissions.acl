@@ -12,6 +12,106 @@
  * limitations under the License.
  */
 
+rule SecretarySeeNetworks {
+    description: "Secretaries see Networks"
+    participant: "org.example.archive.Secretary"
+    operation: READ
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule QuerentsSeeNetworks {
+    description: "Secretaries see Networks"
+    participant: "org.example.archive.Querent"
+    operation: READ
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule SecretaryUseNetworks {
+    description: "Secretaries use Networks"
+    participant: "org.example.archive.Secretary"
+    operation: CREATE, UPDATE, DELETE
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule QuerentUseNetworks {
+    description: "Secretaries use Networks"
+    participant: "org.example.archive.Querent"
+    operation: CREATE, UPDATE, DELETE
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule SecretaryDealwithODs {
+    description: "Secretaries deal ODs"
+    participant: "org.example.archive.Secretary"
+    operation: ALL
+    resource: "org.example.archive.OfficialDocument"
+    action: ALLOW
+}
+
+rule QuerentSeeODs {
+    description: "Secretaries see ODs"
+    participant: "org.example.archive.Querent"
+    operation: READ
+    resource: "org.example.archive.OfficialDocument"
+    action: ALLOW
+}
+
+rule SecretaryPerformArchives {
+    description: "Secretaries can perform Archive action"
+    participant: "org.example.archive.Secretary"
+    operation: ALL
+    resource: "org.example.archive.Archive"
+    action: ALLOW
+}
+
+rule SecretaryPerformArchivePrints {
+    description: "Secretaries can perform ArchivePrint action"
+    participant: "org.example.archive.Secretary"
+    operation: ALL
+    resource: "org.example.archive.ArchivePrint"
+    action: ALLOW
+}
+
+
+rule SecretarySeeOthers {
+    description: "Secretaries see themselves"
+    participant: "org.example.archive.Secretary"
+    operation: READ
+    resource: "org.example.archive.Secretary"
+    action: ALLOW
+}
+
+rule SecretaryUpdateSelves {
+    description: "Secretaries can edit themselves"
+    participant(p): "org.example.archive.Secretary"
+    operation: UPDATE
+    resource(r): "org.example.archive.Secretary"
+    condition: (r.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+}
+
+rule QuerentSeeOthers {
+    description: "Querents see themselves"
+    participant: "org.example.archive.Querent"
+    operation: READ
+    resource: "org.example.archive.Querent"
+    action: ALLOW
+}
+
+rule QuerentUpdateSelves {
+    description: "Querents can edit themselves"
+    participant(p): "org.example.archive.Querent"
+    operation: UPDATE
+    resource(r): "org.example.archive.Querent"
+    condition: (r.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+}
+
+
 rule NetworkAdminUser {
     description: "Grant business network administrators full access to user resources"
     participant: "org.hyperledger.composer.system.NetworkAdmin"

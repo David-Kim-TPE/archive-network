@@ -74,6 +74,7 @@ asset OfficialDocument identified by Issue_No  {
   o Agency Agency_Id // 行政執行分屬代碼前2碼
   o String Transfer_Agency_Id // 移送機關代號
   o String Transfer_Date // 移送日期
+  --> Secretary Creator // 建檔人
   --> Secretary End_File_Submiter optional // 歸檔人
   --> Secretary End_File_Printer optional // 歸檔列印人
   o String File_URL optional // 檔案暫存路徑
@@ -112,7 +113,6 @@ transaction Archive {
   o String BatchNo // 歸檔批號-流水號
   o String BatchYear // 歸檔批號-年度
   o String End_File_URL // 歸檔檔案URL
-  --> Secretary End_File_Submiter // 歸檔人
 }
 
 /**
@@ -128,7 +128,6 @@ event ArchiveEvent {
 transaction ArchivePrint {
   --> OfficialDocument od // 公文
   o String End_Print_Date // 歸檔列印日期
-  --> Secretary End_File_Printer // 歸檔列印人
 }
 
 /**

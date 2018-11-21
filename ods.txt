@@ -28,7 +28,7 @@
   "Transfer_Date": "1071024"
     },
     {
-      "Issue_No": "桃稅法1063702754",
+      "Issue_No": "桃稅1063702754",
   "Issue_Date": "1080205",
   "Class_Type": "B",
   "Send_Class_ID": "H42210601334",
