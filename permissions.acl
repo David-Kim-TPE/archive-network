@@ -44,11 +44,29 @@ rule QuerentUseNetworks {
     action: ALLOW
 }
 
-rule SecretaryDealwithODs {
+rule SecretarySeeODs {
     description: "Secretaries deal ODs"
     participant: "org.example.archive.Secretary"
-    operation: ALL
+    operation: READ
     resource: "org.example.archive.OfficialDocument"
+    action: ALLOW
+}
+
+rule SecretaryCreateODs {
+    description: "Secretaries deal ODs"
+    participant(p): "org.example.archive.Secretary"
+    operation: CREATE
+    resource(r): "org.example.archive.OfficialDocument"
+    condition: (p.getIdentifier() == r.Creator.getIdentifier())
+    action: ALLOW
+}
+
+rule SecretaryDealODs {
+    description: "Secretaries deal ODs"
+    participant(p): "org.example.archive.Secretary"
+    operation: UPDATE, DELETE
+    resource(r): "org.example.archive.OfficialDocument"
+    condition: (p.getIdentifier() == r.Creator.getIdentifier())
     action: ALLOW
 }
 

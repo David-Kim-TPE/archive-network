@@ -3,7 +3,7 @@
     "composer": "^0.20.1"
   },
   "name": "archive-network",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "a basic officail document archiving network",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/archive-network.bna",
